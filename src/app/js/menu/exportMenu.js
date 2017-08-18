@@ -8,6 +8,7 @@ module.exports = function (graph) {
 		exportSvgButton,
 		exportFilename,
 		exportJsonButton,
+		exportOWLButton,
 		exportableJsonText;
 
 	/**
@@ -18,6 +19,9 @@ module.exports = function (graph) {
 			.on("click", exportSvg);
 		exportJsonButton = d3.select("#exportJson")
 			.on("click", exportJson);
+
+		exportOWLButton = d3.select("#exportOWL")
+			.on("click", exportOWL);
 
 		var menuEntry= d3.select("#export");
 		menuEntry.on("mouseover",function(){
@@ -318,6 +322,33 @@ module.exports = function (graph) {
 		var dataURI = "data:text/json;charset=utf-8," + encodeURIComponent(exportText);
 		exportJsonButton.attr("href", dataURI)
 			.attr("download", exportFilename + ".json");
+	}
+
+	function exportOWL(){
+		var boundary = "-----------------------------799261011136166368191942565";
+    var xhr = new XMLHttpRequest({mozSystem: true});
+    var body = '--'+boundary + '\r\n'
+             // Parameter name is "file" and local filename is "temp.txt"
+             + 'Content-Disposition: form-data; name="ontology"; '
+             + 'filename="temp.json"\r\n'
+             // Add the file's mime-type
+             + 'Content-type: application/json\r\n\r\n'
+             + exportableJsonText + '\r\n'
+             + '--'+boundary+'--';
+
+    xhr.open("POST", "http://localhost:8080/convert", true);
+    xhr.setRequestHeader(
+        "Content-type", "multipart/form-data; boundary="+boundary
+
+    );
+    xhr.onreadystatechange = function (){
+        if (xhr.readyState == 4 && xhr.status == 200){
+					var dataURI = "data:text/json;charset=utf-8," + encodeURIComponent(xhr.response);
+					exportOWLButton.attr("href", dataURI)
+						.attr("download", "ontology.owl");
+				}
+    }
+    xhr.send(body);
 	}
 
 	return exportMenu;
