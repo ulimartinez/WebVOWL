@@ -60,24 +60,24 @@ module.exports = function () {
 		sidebar.setup();
 
 
-        var agentVersion=getInternetExplorerVersion();
-        console.log("agent Version "+agentVersion);
-       	if (agentVersion> 0 && agentVersion<= 11) {
-        	console.log("this agent is not supported");
+    var agentVersion=getInternetExplorerVersion();
+    console.log("agent Version "+agentVersion);
+   	if (agentVersion> 0 && agentVersion<= 11) {
+    	console.log("this agent is not supported");
 			d3.select("#browserCheck").classed("hidden", false);
 			d3.select("#killWarning" ).classed("hidden", true);
 			d3.select("#optionsArea" ).classed("hidden", true);
 			d3.select("#logo").classed("hidden", true);
-        } else {
+    } else {
 			d3.select("#logo").classed("hidden", false);
 			if (agentVersion===12) {
-                d3.select("#browserCheck").classed("hidden", false);
-                d3.select("#killWarning").classed("hidden", false);
-            } else {
-                d3.select("#browserCheck").classed("hidden", true);
+        d3.select("#browserCheck").classed("hidden", false);
+        d3.select("#killWarning").classed("hidden", false);
+      } else {
+        d3.select("#browserCheck").classed("hidden", true);
 			}
-            ontologyMenu.setup(loadOntologyFromText);
-            resetMenu.setup([gravityMenu, filterMenu, modeMenu, focuser, selectionDetailDisplayer, pauseMenu]);
+      ontologyMenu.setup(loadOntologyFromText);
+      resetMenu.setup([gravityMenu, filterMenu, modeMenu, focuser, selectionDetailDisplayer, pauseMenu]);
 			searchMenu.setup();
 			navigationMenu.setup();
 
@@ -105,7 +105,7 @@ module.exports = function () {
 
 			// initialize the values;
 			graph.setDefaultZoom(defZoom);
-        }
+    }
 	};
 
 	function loadOntologyFromText(jsonText, filename, alternativeFilename) {
@@ -160,7 +160,7 @@ module.exports = function () {
 		exportMenu.setJsonText(jsonText);
 		options.data(data);
 		graph.load();
-		
+
 		sidebar.updateOntologyInformation(data, statistics);
 		exportMenu.setFilename(filename);
 	}

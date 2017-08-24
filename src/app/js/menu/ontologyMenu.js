@@ -97,9 +97,9 @@ module.exports = function (graph) {
 		// slice the "#" character
 		var hashParameter = location.hash.slice(1);
 
-		if (!hashParameter) {
-			hashParameter = DEFAULT_JSON_NAME;
-		}
+		// if (!hashParameter) {
+		// 	hashParameter = DEFAULT_JSON_NAME;
+		// }
 
 		var ontologyOptions = d3.selectAll(".select li").classed("selected-ontology", false);
 		emptyGraph=false;
